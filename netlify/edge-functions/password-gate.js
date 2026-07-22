@@ -20,13 +20,13 @@ export default async (request, context) => {
     const submitted = form.get("password");
 
     if (submitted === PASSWORD) {
-      const response = await context.next();
-      const headers = new Headers(response.headers);
+      const headers = new Headers();
       headers.append(
         "Set-Cookie",
-        `${COOKIE_NAME}=${PASSWORD}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=10`
+        `${COOKIE_NAME}=${PASSWORD}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=86400`
       );
-      return new Response(response.body, { status: response.status, headers });
+      headers.append("Location", path);
+      return new Response(null, { status: 302, headers });
     }
     return new Response(renderForm(true), {
       status: 401,
@@ -40,13 +40,19 @@ export default async (request, context) => {
     .split(";")
     .some(c => c.trim() === `${COOKIE_NAME}=${PASSWORD}`);
 
-  if (hasAuth) {
-    return context.next();
+ if (hasAuth) {
+    const response = await context.next();
+    const headers = new Headers(response.headers);
+    headers.set("Cache-Control", "no-store, no-cache, must-revalidate");
+    return new Response(response.body, { status: response.status, headers });
   }
 
   return new Response(renderForm(false), {
     status: 401,
-    headers: { "Content-Type": "text/html" }
+    headers: {
+      "Content-Type": "text/html",
+      "Cache-Control": "no-store, no-cache, must-revalidate"
+    }
   });
 };
 
