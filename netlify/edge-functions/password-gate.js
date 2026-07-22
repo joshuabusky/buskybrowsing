@@ -23,7 +23,7 @@ export default async (request, context) => {
       const headers = new Headers();
       headers.append(
         "Set-Cookie",
-        `${COOKIE_NAME}=${PASSWORD}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=5`
+        `${COOKIE_NAME}=${PASSWORD}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=1`
       );
       headers.append("Location", path);
       return new Response(null, { status: 302, headers });
