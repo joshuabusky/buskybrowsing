@@ -1,7 +1,7 @@
 const PROTECTED_PATHS = [
-  "/secret-page",
-  "/another-protected-page",
-  "/private-gallery"
+  "/portfolio-main",
+  "/school",
+  "/idk"
 ];
 
 const PASSWORD = Netlify.env.get("GATE_PASSWORD"); // set in Netlify site settings
