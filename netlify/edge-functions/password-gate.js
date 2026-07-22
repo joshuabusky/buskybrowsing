@@ -24,7 +24,7 @@ export default async (request, context) => {
       const headers = new Headers(response.headers);
       headers.append(
         "Set-Cookie",
-        `${COOKIE_NAME}=${PASSWORD}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=86400`
+        `${COOKIE_NAME}=${PASSWORD}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=10`
       );
       return new Response(response.body, { status: response.status, headers });
     }
