@@ -74,3 +74,4 @@ function renderForm(wrong) {
     </body>
     </html>
   `;
+}
