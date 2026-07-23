@@ -1,5 +1,5 @@
 const PROTECTED_PATHS = [
-  "/portfolio-main"
+  "/portfolio-main.html"
 ];
 
 const PASSWORD = Netlify.env.get("GATE_PASSWORD"); // set in Netlify site settings
@@ -23,7 +23,11 @@ export default async (request, context) => {
       const headers = new Headers();
       headers.append(
         "Set-Cookie",
-        `${COOKIE_NAME}=${PASSWORD}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=1`
+        `${COOKIE_NAME}=${PASSWORD}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=600`
+      );
+      headers.append(
+        "Set-Cookie",
+        `auth_flag=1; Path=/; Secure; SameSite=Strict; Max-Age=600`
       );
       headers.append("Location", path);
       return new Response(null, { status: 302, headers });
