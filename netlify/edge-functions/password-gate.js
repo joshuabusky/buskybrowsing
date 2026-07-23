@@ -34,7 +34,9 @@ export default async (request, context) => {
     }
     return new Response(renderForm(true), {
       status: 401,
-      headers: { "Content-Type": "text/html" }
+      headers: { "Content-Type": "text/html",
+      "Cache-Control": "no-store, no-cache, must-revalidate"
+    }
     });
   }
 
