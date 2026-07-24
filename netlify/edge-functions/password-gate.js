@@ -1,6 +1,8 @@
 const PROTECTED_PATHS = [
   "/portfolio-main.html",
-  "/data-annotation.html"
+  "/portfolio-main",
+  "/data-annotation.html",
+  "/data-annotation"
 ];
 
 const PASSWORD = Netlify.env.get("GATE_PASSWORD"); // set in Netlify site settings
